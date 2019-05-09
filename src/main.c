@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 01:28:43 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/09 01:30:45 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/09 02:11:52 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/includes/libft.h"
-#include "../libmlx/mlx.h"
-#include "fdf.h"
+#include "../fdf.h"
 
-int		main(int ac, char **av);
+int		main(int ac, char **av)
 {
 	return (0);
 }

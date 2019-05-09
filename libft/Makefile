@@ -6,7 +6,7 @@
 #    By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/13 21:22:38 by rpapagna          #+#    #+#              #
-#    Updated: 2019/05/09 02:04:17 by rpapagna         ###   ########.fr        #
+#    Updated: 2019/05/09 02:58:25 by rpapagna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,23 +81,39 @@ SRCS	= ft_atoi.c \
 		ft_strtrim.c \
 		ft_tolower.c \
 		ft_toupper.c \
-		get_next_line.c
+		get_next_line.c \
+		convert_percent.c \
+		convert_b.c \
+		convert_c.c \
+		convert_f.c \
+		convert_i.c \
+		convert_o.c \
+		convert_p.c \
+		convert_s.c \
+		convert_u.c \
+		convert_x.c \
+		do_things.c \
+		get_mods.c \
+		finders.c
 OBJ		= $(patsubst %.c,%.o,$(SRCS))
 
 all: $(NAME)
 
 $(NAME):
-		@printf "[$(GREEN)libft.$(NC)]\t\t[$(RED):##  :$(NC)]\r"
+		@printf "[libft.]\t\t[:#         :]\r"
 		@gcc $(CFLAGS) -I includes/libft.h -c $(addprefix srcs/,$(SRCS))
-		@printf "[$(GREEN)libft.$(NC)]\t\t[$(RED):### :$(NC)]\r"
+		@printf "[libft.]\t\t[:##        :]\r"
 		@ar -rcs $(NAME) $(OBJ)
+		@printf "[libft.]\t\t[:###       :]\r"
 
 clean:
-		@printf "[$(GREEN)clean.$(NC)]\t\t[$(RED):##  :$(NC)]\r"
+		@printf "[clean.]\t\t[:#         :]\r"
 		@rm -rf $(OBJ)
+		@printf "[clean.]\t\t[:##        :]\r"
 
 fclean: clean
-		@printf "[$(GREEN)fclean$(NC)]\t\t[$(RED):### :$(NC)]\r"
+		@printf "[fclean]\t\t[:###       :]\r"
 		@rm -rf $(NAME)
+		@printf "[fclean]\t\t[:####      :]\r"
 
 re: fclean all

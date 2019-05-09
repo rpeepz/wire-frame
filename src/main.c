@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 01:28:43 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/09 02:11:52 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/09 02:44:03 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 
 int		main(int ac, char **av)
 {
+	ac = 1;
+	av = NULL;
+	ft_printf("\n");
+
 	return (0);
 }

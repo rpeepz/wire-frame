@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpapagna <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/09 00:09:32 by rpapagna          #+#    #+#              #
-#    Updated: 2019/05/09 02:14:28 by rpapagna         ###   ########.fr        #
+#    Updated: 2019/05/09 02:58:18 by rpapagna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,27 +22,31 @@ SRC		= main.c
 all:	$(NAME)
 
 $(NAME):
-		@printf "[$(GREEN)f.d.f.$(NAME):$(NC)]\t\t[$(RED):#   :$(NC)]\r"
+		@printf "[$(GREEN)f.d.f.$(NC)]\t\t[:          :]\r"
 		@make -C libft
-		@gcc $(FLAGS) $(addprefix src/,$(SRCS)) $(LIB) $(LIBX) -o $(NAME)
-		@printf "[$(GREEN)f.d.f.:$(NC)]\t\t[$(RED):####:$(NC)]\r"
+		@printf "[$(GREEN)f.d.f.$(NC)]\t\t[:####      :]\r"
+		@gcc $(FLAGS) src/main.c $(LIB) $(LIBX) -o $(NAME)
+		@printf "[$(GREEN)f.d.f.$(NC)]\t\t[:#######   :]\r"
+		@printf "[$(GREEN)f.d.f.$(NC)]\t\t[:##########:]\n"
 
 debug:
-		@printf "[$(GREEN)debug.$(NC)]\t\t[$(RED):#   :$(NC)]\r"
-		@gcc $(FLAGS) -g $(LIB) $(LIBX) -o $(NAME)
-		@printf "[$(GREEN)debug.$(NC)]\t\t[$(RED):####:$(NC)]\r"
+		@gcc $(FLAGS) -g $(addprefix src/,$(SRCS)) $(LIB) $(LIBX) -o $(NAME)
+		@printf "[$(GREEN)debug.$(NC)]\t\t[$(RED):####:$(NC)]\n"
 
 clean:
-		@printf "[$(GREEN)remove$(NC)]\t\t[$(RED):#    :$(NC)]\r"
+		@printf "[$(RED)remove$(NC)]\t\t[:          :]\r"
 		@make -C libft clean
-		@printf "[$(GREEN)remove$(NC)]\t\t[$(RED):####:$(NC)]\r"
+		@printf "[$(RED)remove$(NC)]\t\t[:###       :]\r"
+		@printf "[$(RED)remove$(NC)]\t\t[:#######   :]\r"
+		@printf "[$(RED)remove$(NC)]\t\t[:##########:]\n"
 
 fclean:
-		@printf "[$(GREEN)remove$(NC)]\t\t[$(RED):#    :$(NC)"
-		@rm -rf $(NAME)
-		@printf "[$(GREEN)remove$(NC)]\t\t[$(RED):##   :$(NC)]\r"
+		@printf "[$(RED)remove$(NC)]\t\t[:          :]\r"
 		@make -C libft fclean
-		@printf "[$(GREEN)remove$(NC)]\t\t[$(RED):####:$(NC)]\r"
+		@printf "[$(RED)remove$(NC)]\t\t[:#####     :]\r"
+		@rm -rf $(NAME)
+		@printf "[$(RED)remove$(NC)]\t\t[:#######   :]\r"
+		@printf "[$(RED)remove$(NC)]\t\t[:##########:]\n"
 
 re: fclean all
 

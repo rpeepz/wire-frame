@@ -4,7 +4,6 @@
 *._*
 *.vscode/
 man/
-libft/*
 fdf
 
 # Object files
@@ -57,4 +56,3 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-

@@ -14,8 +14,10 @@ CFLAGS+=-O2
 all: $(NOM)
 
 $(NOM):
-	@cc $(CFLAGS) -c $(SRC)
-	@cc $(CFLAGS) -c $(SRM)
+	@cc -w $(CFLAGS) -c $(SRC)
+	@printf "[$(GREEN)create$(NC)]\t\t[:#####     :]\r"
+	@cc -w $(CFLAGS) -c $(SRM)
+	@printf "[$(GREEN)create$(NC)]\t\t[:######    :]\r"
 	@ar -rcs $(NOM) $(OBJ)
 #$(NOM):	$(OBJ)
 #	@ar -rc $(NOM) $(OBJ)

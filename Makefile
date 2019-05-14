@@ -6,7 +6,7 @@
 #    By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/09 00:09:32 by rpapagna          #+#    #+#              #
-#    Updated: 2019/05/14 02:13:58 by rpapagna         ###   ########.fr        #
+#    Updated: 2019/05/14 15:36:52 by rpapagna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,12 @@ GREEN	= \033[0;32m
 RED		= \033[0;31m
 NC		= \033[0m
 
-SRC		= main.c\
-		errors.c
+SRC		= errors.c\
+		image.c\
+		main.c\
+		map.c\
+		parse.c\
+		window.c
 
 FLAGS	= -Wall -Wextra -Werror
 MLX_LNK	= -L ./minilibx_macros -l mlx_macros -framework OpenGL -framework AppKit
@@ -32,8 +36,8 @@ $(NAME):
 		@make -C libft
 		@printf "[$(GREEN)f.d.f.$(NC)]\t\t[:##########:]\r"
 		@make -C minilibx_macros
-		@printf "[$(GREEN)f.d.f.$(NC)]\t\t[:#####     :]\r"
-		@gcc $(FLAGS) $(addprefix src/,$(SRC)) $(MLX_LNK) $(FT_LNK) $(INC) -o $(NAME)
+		@printf "[$(GREEN)f.d.f.$(NC)]\t\t[:#######   :]\r"
+		@gcc $(FLAGS) $(addprefix src/,$(SRC)) $(INC) $(MLX_LNK) $(FT_LNK) -o $(NAME)
 		@printf "[$(GREEN)f.d.f.$(NC)]\t\t[:########  :]\r"
 		@printf "[$(GREEN)f.d.f.$(NC)]\t\t[:##########:]\n"
 
@@ -41,7 +45,7 @@ debug:
 		@gcc $(FLAGS) -g $(addprefix src/,$(SRC)) $(MLX_LNK) $(FT_LNK) $(INC) -o $(NAME)
 		@printf "[$(GREEN)debug.$(NC)]\t\t[$(RED):##########:$(NC)]\n"
 1mo:
-		@gcc $(FLAGS) $(addprefix src/,$(SRC)) $(MLX_LNK) $(FT_LNK) $(INC) -o $(NAME)
+		@gcc $(FLAGS) $(addprefix src/,$(SRC)) $(INC) $(MLX_LNK) $(FT_LNK) -o $(NAME)
 clean:
 		@printf "[$(RED)remove$(NC)]\t\t[:          :]\r"
 		@make -C libft clean

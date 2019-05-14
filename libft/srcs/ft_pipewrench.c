@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 18:27:51 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/04/12 15:59:45 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/14 16:55:22 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ static int		plunger(va_list ap, int depth)
 }
 
 /*
-	if (ft_isdigit(**str))
-	{
-		x = ft_atoi(*str);
-	}
+**	if (ft_isdigit(**str))
+**	{
+**		x = ft_atoi(*str);
+**	}
 */
 
 static int		pipe_cutter(char **str, va_list ap)

@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 22:25:57 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/14 02:39:13 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/14 16:57:36 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_mlx		*mlxdel(t_mlx *mlx)
 **		Goes right before mlx->image
 **		!(mlx->mouse = ft_memalloc(sizeof(t_mouse))) ||
 */
+
 t_mlx		*init(char *title)
 {
 	t_mlx	*mlx;

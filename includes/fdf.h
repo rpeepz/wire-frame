@@ -6,16 +6,14 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:06:55 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/14 16:27:00 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/14 16:54:22 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-
 # define WIDTH 1280
 # define HEIGHT 720
-
 
 # include "../libft/includes/libft.h"
 # include "../minilibx/mlx.h"
@@ -64,7 +62,7 @@ typedef struct	s_mouse
 	int			lastx;
 	int			lasty;
 }				t_mouse;
-typedef struct 	s_mlx
+typedef struct	s_mlx
 {
 	void		*mlx;
 	void		*window;

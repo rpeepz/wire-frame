@@ -6,13 +6,13 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 02:35:33 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/14 16:25:02 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/14 16:56:46 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-double	why_me_double(double val, double first, double second)
+double		why_me_double(double val, double first, double second)
 {
 	if (val == first)
 		return (0.0);

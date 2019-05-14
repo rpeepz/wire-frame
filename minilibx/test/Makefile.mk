@@ -4,7 +4,7 @@ INC=%%%%
 
 INCLIB=$(INC)/../lib
 
-CC=gcc
+CC=@gcc -w
 
 CFLAGS= -I$(INC) -O3 -I..
 
@@ -18,7 +18,6 @@ $(NAME)	:$(OBJ)
 	$(CC) -o $(NAME) $(OBJ) -L.. -lmlx -L$(INCLIB) -lXext -lX11 -lm
 
 clean	:
-	rm -f $(NAME) $(OBJ) *~ core *.core
-
+	@rm -f $(NAME) $(OBJ) *~ core *.core
 
 re	: clean all

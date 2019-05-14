@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:06:55 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/14 15:33:07 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/14 16:27:00 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 
 # include "../libft/includes/libft.h"
 # include "../minilibx/mlx.h"
+
+/*
+**	STRUCTS
+*/
 
 typedef struct	s_image
 {
@@ -70,12 +74,28 @@ typedef struct 	s_mlx
 	t_mouse		*mouse;
 }				t_mlx;
 
-int				ft_error(int err_num);
+/*
+**	LIST OPS
+*/
+
+int				smash_list(t_list **lines, t_map **map);
+int				count_links(t_list *lines);
+int				gross(char ***split_map_coordinates);
+void			rev_list(t_list **alst);
+/*
+**	STRUCT RETURNS
+*/
 t_mlx			*init(char *title);
 t_mlx			*mlxdel(t_mlx *mlx);
 t_image			*new_image(t_mlx *mlx);
 t_image			*del_image(t_mlx *mlx, t_image *img);
-t_map			*store_map(int width, int height);
+
+int				jebus(int c1, int c2, double p);
+int				why_me(int first, int second, double p);
+double			why_me_double(double val, double first, double second);
+void			i_wish_this_worked(t_map *map);
+void			map_depth(t_map *map);
+int				ft_error(int err_num);
 int				parse_fdf(int fd, t_map **map);
 #endif
 

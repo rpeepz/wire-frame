@@ -6,7 +6,7 @@
 #    By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/09 00:09:32 by rpapagna          #+#    #+#              #
-#    Updated: 2019/05/14 15:36:52 by rpapagna         ###   ########.fr        #
+#    Updated: 2019/05/14 16:08:14 by rpapagna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ NC		= \033[0m
 
 SRC		= errors.c\
 		image.c\
+		list_ops.c\
 		main.c\
 		map.c\
 		parse.c\
@@ -59,6 +60,8 @@ fclean: clean
 		@make -C libft fclean
 		@printf "[$(RED)remove$(NC)]\t\t[:#######   :]\r"
 		@rm -rf $(NAME)
+		@printf "[$(RED)remove$(NC)]\t\t[:########  :]\r"
+		@rm -rf $(NAME).dSYM
 		@printf "[$(RED)remove$(NC)]\t\t[:##########:]\n"
 
 re: fclean all

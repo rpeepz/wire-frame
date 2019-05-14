@@ -6,61 +6,11 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 02:43:38 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/14 15:23:35 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/14 16:47:05 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-static int		smash_list(t_list **lines, t_map **map)
-{
-	t_list	*next;
-
-	while (*lines)
-	{
-		next = (*lines)->next;
-		ft_memdel(&(*lines)->content);
-		ft_memdel((void **)lines);
-		*lines = next;
-	}
-	if (map && *map)
-	{
-		ft_memdel((void **)&(*map)->vectors);
-		ft_memdel((void **)map);
-	}
-	return (0);
-}
-
-static int		count_links(t_list *lines)
-{
-	int		i;
-
-	i = 0;
-	while (lines != NULL)
-	{
-		lines = lines->next;
-		i++;
-	}
-	return (i);
-}
-
-static void		rev_list(t_list **alst)
-{
-	t_list	*prev;
-	t_list	*cur;
-	t_list	*next;
-
-	prev = NULL;
-	cur = *alst;
-	while (cur != NULL)
-	{
-		next = cur->next;
-		cur->next = prev;
-		prev = cur;
-		cur = next;
-	}
-	*alst = prev;
-}
 
 static int		store_lines(int fd, t_list **lines)
 {
@@ -88,6 +38,62 @@ static int		store_lines(int fd, t_list **lines)
 	return (1);
 }
 
+static t_map	*store_map(int width, int height)
+{
+	t_map	*map;
+
+	if (!(map = ft_memalloc(sizeof(t_map))))
+		return (NULL);
+	map->width = width;
+	map->height = height;
+	map->depth_min = 0;
+	map->depth_max = 0;
+	if (!(map->vectors = ft_memalloc(sizeof(t_vector *) * width * height)))
+	{
+		ft_memdel((void **)&map);
+		return (NULL);
+	}
+	return (map);
+}
+
+t_vector	*make_vector(int x, int y, char *str)
+{
+	t_vector	*vector;
+
+	if (!(vector = ft_memalloc(sizeof(t_vector))))
+		return (NULL);
+	vector->x = (double)x;
+	vector->y = (double)y;
+	vector->z = (double)ft_atoi(str);
+	vector->color = 0xFFFFFF;
+	return (vector);
+}
+
+static int		make_more_map(t_map **map, t_list *lines)
+{
+	t_list	*tmp;
+	char	**splt;
+	int		x;
+	int		y;
+
+	tmp = lines;
+	y = -1;
+	while (++y < (*map)->height)
+	{
+		x = -1;
+		if (!(splt = ft_strsplit(tmp->content, ' ')))
+			return (smash_list(&lines, map));
+		while (++x < (*map)->width)
+			(*map)->vectors[y * (*map)->width + x] = make_vector(x, y, splt[x]);
+		gross(&splt);
+		tmp = tmp->next;
+	}
+	map_depth(*map);
+	i_wish_this_worked(*map);
+	smash_list(&lines, NULL);
+	return (1);
+}
+
 int				parse_fdf(int fd, t_map **map)
 {
 	t_list	*lines;
@@ -98,5 +104,5 @@ int				parse_fdf(int fd, t_map **map)
 	*map = store_map(ft_countwords(lines->content, ' '), count_links(lines));
 	if (!*map)
 		return (smash_list(&lines, map));
-	return (0);
+	return (make_more_map(map, lines));
 }

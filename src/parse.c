@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 02:43:38 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/16 17:35:18 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/16 18:54:58 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static t_map	*store_map(int width, int height)
 	return (map);
 }
 
-t_vector		*make_vector(int x, int y, char *str)
+static t_vector	*make_vector(int x, int y, char *str)
 {
 	t_vector	*vector;
 

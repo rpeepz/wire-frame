@@ -6,54 +6,45 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 15:24:33 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/14 16:57:02 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/17 02:25:14 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void		i_wish_this_worked(t_map *map)
-{
-	t_vector	vector;
-	t_vector	*current;
-
-	vector.y = 0;
-	while (vector.y < map->height)
-	{
-		vector.x = 0;
-		while (vector.x < map->width)
-		{
-			current = map->vectors[(int)vector.y * map->width + (int)vector.x];
-			current->color = jebus(0xFF0000, 0xFFFFFF, why_me_double(current->z,
-				map->depth_min, map->depth_max));
-			vector.x++;
-		}
-		vector.y++;
-	}
-}
-
-void		map_depth(t_map *map)
+void			map_depth(t_map *map)
 {
 	int			min;
 	int			max;
 	t_vector	vector;
 	t_vector	current;
 
-	min = INT32_MIN;
-	max = INT32_MAX;
-	vector.y = -1;
-	while (++vector.y < map->height)
+	min = INT32_MAX;
+	max = INT32_MIN;
+	vector.y = 0;
+	while (vector.y < map->height)
 	{
-		vector.x = -1;
-		while (++vector.x < map->height)
+		vector.x = 0;
+		while (vector.x < map->width)
 		{
 			current = *map->vectors[(int)vector.y * map->width + (int)vector.x];
 			if (current.z < min)
 				min = current.z;
 			if (current.z > max)
 				max = current.z;
+			vector.x++;
 		}
+		vector.y++;
 	}
 	map->depth_min = min;
 	map->depth_max = max;
+}
+
+double			convert_(double z_vector, double min, double max)
+{
+	if (z_vector == min)
+		return (0.0);
+	if (z_vector == max)
+		return (1.0);
+	return ((z_vector - min) / (max - min));
 }

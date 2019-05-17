@@ -6,7 +6,7 @@
 #    By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/09 00:09:32 by rpapagna          #+#    #+#              #
-#    Updated: 2019/05/16 18:52:39 by rpapagna         ###   ########.fr        #
+#    Updated: 2019/05/16 22:55:16 by rpapagna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ RED		= \033[0;31m
 NC		= \033[0m
 
 SRC		= image.c\
+		inputs.c\
+		lines.c\
 		list_ops.c\
 		main.c\
 		map.c\
@@ -45,7 +47,7 @@ $(NAME):
 		@printf "[$(GREEN)f.d.f.$(NC)]\t\t[:##########:]\n"	#PRINT
 
 debug:
-		@gcc $(FLAGS) -g $(addprefix src/,$(SRC)) $(MLX_LNK) $(FT_LNK) $(INC) -o $(NAME)
+		@gcc $(FLAGS) -g $(addprefix src/,$(SRC)) $(MLX_LNK) $(FT_LNK) $(INC) -o $(NAME) -fsanitize=address
 		@printf "[$(GREEN)debug.$(NC)]\t\t[$(RED):##########:$(NC)]\n"	#PRINT
 1mo:
 		@printf "[$(RED)f.d.f.$(NC)]\t\t[:#         :]\r"	#PRINT

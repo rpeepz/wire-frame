@@ -6,21 +6,40 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:06:55 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/14 16:54:22 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/17 11:36:01 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 1000
+# define HEIGHT 1000
 
 # include "../libft/includes/libft.h"
 # include "../minilibx/mlx.h"
+# include <math.h>
 
 /*
 **	STRUCTS
 */
+
+typedef struct	s_mouse
+{
+	char		isdown;
+	int			x;
+	int			y;
+	int			lastx;
+	int			lasty;
+}				t_mouse;
+typedef struct	s_cam
+{
+	double		offsetx;
+	double		offsety;
+	double		x;
+	double		y;
+	int			scale;
+	double		**matrix;
+}				t_cam;
 
 typedef struct	s_image
 {
@@ -30,6 +49,7 @@ typedef struct	s_image
 	int			stride;
 	int			endian;
 }				t_image;
+
 typedef struct	s_vector
 {
 	double		x;
@@ -45,31 +65,26 @@ typedef struct	s_map
 	int			depth_max;
 	t_vector	**vectors;
 }				t_map;
-typedef struct	s_cam
+typedef struct	s_line
 {
-	double		offsetx;
-	double		offsety;
-	double		x;
-	double		y;
-	int			scale;
-	double		**matrix;
-}				t_cam;
-typedef struct	s_mouse
-{
-	char		isdown;
-	int			x;
-	int			y;
-	int			lastx;
-	int			lasty;
-}				t_mouse;
+	t_vector	start;
+	t_vector	stop;
+	int			dx;
+	int			dy;
+	int			sx;
+	int			sy;
+	int			err;
+	int			err2;
+}				t_line;
+
 typedef struct	s_mlx
 {
 	void		*mlx;
 	void		*window;
 	t_image		*image;
 	t_map		*map;
-	t_cam		*cam;
 	t_mouse		*mouse;
+	t_cam		*cam;
 }				t_mlx;
 
 /*
@@ -80,24 +95,46 @@ int				smash_list(t_list **lines, t_map **map);
 int				count_links(t_list *lines);
 int				gross(char ***split_map_coordinates);
 void			rev_list(t_list **alst);
+void			set_colors(t_map *map);
+void			render(t_mlx *mlx);
+void			line(t_mlx *mlx, t_vector p1, t_vector p2);
+
 /*
 **	STRUCT RETURNS
 */
+
 t_mlx			*init(char *title);
 t_mlx			*mlxdel(t_mlx *mlx);
 t_image			*new_image(t_mlx *mlx);
 t_image			*del_image(t_mlx *mlx, t_image *img);
+t_vector		project_vector(t_vector v, t_mlx *mlx);
 
-int				jebus(int c1, int c2, double p);
-int				why_me(int first, int second, double p);
-double			why_me_double(double val, double first, double second);
-void			i_wish_this_worked(t_map *map);
+/*
+**	INPUTS
+*/
+
+int				hook_mouseup(int button, int x, int y, t_mlx *mlx);
+int				hook_mousedown(int button, int x, int y, t_mlx *mlx);
+int				hook_mousemove(int x, int y, t_mlx *mlx);
+int				hook_keydown(int key, t_mlx *mlx);
+
+double			convert_(double z_vector, double min, double max);
+int				shift_color(int c1, int c2, double p);
 void			map_depth(t_map *map);
 int				ft_error(int err_num);
 int				parse_fdf(int fd, t_map **map);
+
 #endif
 
 /*
+**	FUNCTIONS FROM MINILIBX
+**	
+**
+**
+**
+**
+**
+**
 **	Many thanks to pbondoer for helping me understand the use of
 **	mlx library and use of integrated structures for this project
 **	https://github.com/pbondoer/42-FdF

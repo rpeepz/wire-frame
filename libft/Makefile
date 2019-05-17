@@ -6,7 +6,7 @@
 #    By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/13 21:22:38 by rpapagna          #+#    #+#              #
-#    Updated: 2019/05/13 22:08:49 by rpapagna         ###   ########.fr        #
+#    Updated: 2019/05/16 23:01:00 by rpapagna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,7 +101,7 @@ all: $(NAME)
 
 $(NAME):
 		@printf "[libft.]\t\t[:#         :]\r"
-		@gcc $(CFLAGS) -I includes/ -c $(addprefix srcs/,$(SRCS))
+		@gcc -g $(CFLAGS) -I includes/ -c $(addprefix srcs/,$(SRCS))
 		@printf "[libft.]\t\t[:##        :]\r"
 		@ar -rcs $(NAME) $(OBJ)
 		@printf "[libft.]\t\t[:###       :]\r"

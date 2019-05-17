@@ -5,6 +5,7 @@
 *.vscode/
 man/
 fdf
+my_lib/*
 
 # Object files
 *.o

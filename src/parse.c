@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 02:43:38 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/14 16:58:06 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/16 17:35:18 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int		make_more_map(t_map **map, t_list *lines)
 		tmp = tmp->next;
 	}
 	map_depth(*map);
-	i_wish_this_worked(*map);
+	set_colors(*map);
 	smash_list(&lines, NULL);
 	return (1);
 }

@@ -6,29 +6,20 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 02:35:33 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/14 16:56:46 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/16 19:00:10 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-double		why_me_double(double val, double first, double second)
-{
-	if (val == first)
-		return (0.0);
-	if (val == second)
-		return (1.0);
-	return ((val - first) / (second - first));
-}
-
-int			why_me(int first, int second, double p)
+static int		construct_color(int first, int second, double p)
 {
 	if (first == second)
 		return (first);
 	return ((int)((double)first + (second - first) * p));
 }
 
-int			jebus(int c1, int c2, double p)
+static int		shift_color(int c1, int c2, double p)
 {
 	int r;
 	int g;
@@ -36,13 +27,33 @@ int			jebus(int c1, int c2, double p)
 
 	if (c1 == c2)
 		return (c1);
-	r = why_me((c1 >> 16) & 0xFF, (c2 >> 16) & 0xFF, p);
-	g = why_me((c1 >> 8) & 0xFF, (c2 >> 8) & 0xFF, p);
-	b = why_me(c1 & 0xFF, c2 & 0xFF, p);
+	r = construct_color((c1 >> 16) & 0xFF, (c2 >> 16) & 0xFF, p);
+	g = construct_color((c1 >> 8) & 0xFF, (c2 >> 8) & 0xFF, p);
+	b = construct_color(c1 & 0xFF, c2 & 0xFF, p);
 	return (r << 16 | g << 8 | b);
 }
 
-t_image		*del_image(t_mlx *mlx, t_image *img)
+void			set_colors(t_map *map)
+{
+	t_vector	vector;
+	t_vector	*current;
+
+	vector.y = 0;
+	while (vector.y < map->height)
+	{
+		vector.x = 0;
+		while (vector.x < map->width)
+		{
+			current = map->vectors[(int)vector.y * map->width + (int)vector.x];
+			current->color = shift_color(0x10FF00, 0xFFFFFF,
+				convert_(current->z, map->depth_min, map->depth_max));
+			vector.x++;
+		}
+		vector.y++;
+	}
+}
+
+t_image			*del_image(t_mlx *mlx, t_image *img)
 {
 	if (img != NULL)
 	{
@@ -53,7 +64,7 @@ t_image		*del_image(t_mlx *mlx, t_image *img)
 	return (NULL);
 }
 
-t_image		*new_image(t_mlx *mlx)
+t_image			*new_image(t_mlx *mlx)
 {
 	t_image		*img;
 

@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 01:28:43 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/14 16:56:54 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/16 18:59:44 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,16 @@ int		main(int ac, char **av)
 	if (!(mlx = init("baguette")))
 		return (ft_error(3));
 	mlx->map = map;
-	system("leaks fdf");
+	render(mlx);
 	return (0);
+}
+
+int		ft_error(int err_num)
+{
+	IF_THEN(err_num == 1, ft_printf("usage: ./fdf [file ...]\n"));
+	IF_THEN(err_num == 2, ft_printf("error: bad file, yo\n"));
+	IF_THEN(err_num == 3, ft_printf("error: you done broke mlx\n"));
+	return (1);
 }
 
 int		gross(char ***plz_no)

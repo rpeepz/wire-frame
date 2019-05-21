@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 18:27:51 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/14 16:55:22 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/20 15:36:54 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,43 @@ static int		teflon_tape(va_list ap)
 	return (i + 1);
 }
 
-static int		plunger(va_list ap, int depth)
+static int		screwdriver(va_list ap)
 {
-	if (depth == 2)
-		return (teflon_tape(ap));
+	int		**p_ints;
+	int		i;
+	int		freed;
+
+	i = 0;
+	freed = 0;
+	p_ints = va_arg(ap, int **);
+	while (p_ints[i])
+		i++;
+	while (freed < i && p_ints[freed])
+	{
+		free(p_ints[freed++]);
+	}
+	free(p_ints);
+	return (i + 1);
+}
+
+static int		plunger(va_list ap, int depth, char sig)
+{
 	if (depth > 2)
 		return (1);
-	free(va_arg(ap, char*));
+	if (sig == 's')
+	{
+		if (depth > 1)
+			return (teflon_tape(ap));
+		else
+			free(va_arg(ap, char*));
+	}
+	if (sig == 'i')
+	{
+		if (depth > 1)
+			return (screwdriver(ap));
+		else
+			free(va_arg(ap, int*));
+	}
 	return (depth);
 }
 
@@ -60,9 +90,9 @@ static int		pipe_cutter(char **str, va_list ap)
 		pointer_depth += 1;
 	}
 	freed = 0;
-	if (**str == 's')
+	if (**str)
 	{
-		freed += plunger(ap, pointer_depth);
+		freed += plunger(ap, pointer_depth, **str);
 		(*str)++;
 	}
 	return (freed);

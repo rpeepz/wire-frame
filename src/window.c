@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 22:25:57 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/17 11:37:03 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/20 22:16:40 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void			render(t_mlx *mlx)
 	t_vector	v;
 	t_map		*map;
 
-	map = mlx->map;
+	map = *(mlx->map);
 	ft_bzero(mlx->image->ptr, WIDTH * HEIGHT * mlx->image->bpp);
 	x = -1;
 	while (++x < map->width)
@@ -74,10 +74,10 @@ void			render(t_mlx *mlx)
 			v = project_vector(vector_at(map, x, y), mlx);
 			if (x + 1 < map->width)
 				line(mlx, v,
-					project_vector(*map->vectors[y * map->width + x + 1], mlx));
+					project_vector(vector_at(map, x + 1, y), mlx));
 			if (y + 1 < map->height)
 				line(mlx, v,
-					project_vector(*map->vectors[y + 1 * map->width + x], mlx));
+					project_vector(vector_at(map, x, y + 1), mlx));
 		}
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->image->image, 0, 0);

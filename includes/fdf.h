@@ -6,14 +6,14 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:06:55 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/17 11:36:01 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/20 22:28:07 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 1600
+# define HEIGHT 900
 
 # include "../libft/includes/libft.h"
 # include "../minilibx/mlx.h"
@@ -81,8 +81,9 @@ typedef struct	s_mlx
 {
 	void		*mlx;
 	void		*window;
+	int			total;
 	t_image		*image;
-	t_map		*map;
+	t_map		**map;
 	t_mouse		*mouse;
 	t_cam		*cam;
 }				t_mlx;

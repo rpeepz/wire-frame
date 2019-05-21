@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 21:20:06 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/16 21:32:05 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/20 22:57:39 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,13 @@ int		hook_keydown(int key, t_mlx *mlx)
 	(void)mlx;
 	if (key == 53)
 		exit(EXIT_SUCCESS);
+	else
+	{
+		if (key == 124)
+			mlx->map++;
+		else if (key == 123)
+			mlx->map--;
+		render(mlx);
+	}
 	return (0);
 }

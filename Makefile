@@ -6,7 +6,7 @@
 #    By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/09 00:09:32 by rpapagna          #+#    #+#              #
-#    Updated: 2019/05/16 22:55:16 by rpapagna         ###   ########.fr        #
+#    Updated: 2019/05/20 17:09:29 by rpapagna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ debug:
 		@printf "[$(RED)f.d.f.$(NC)]\t\t[:###       :]\r"	#PRINT
 		@rm -rf $(NAME)
 		@printf "[$(GREEN)f.d.f.$(NC)]\t\t[:#####     :]\r"	#PRINT
-		@gcc -w $(FLAGS) $(addprefix src/,$(SRC)) $(INC) $(MLX_LNK) $(FT_LNK) -o $(NAME)
+		@gcc -w -g $(FLAGS) $(addprefix src/,$(SRC)) $(INC) $(MLX_LNK) $(FT_LNK) -o $(NAME)
 		@printf "[$(GREEN)f.d.f.$(NC)]\t\t[:#######   :]\r"	#PRINT
 		@printf "[$(GREEN)f.d.f.$(NC)]\t\t[:##########:]\n"	#PRINT
 clean:
@@ -65,14 +65,14 @@ clean:
 		@make -C minilibx clean
 		@printf "[$(RED)remove$(NC)]\t\t[:#######   :]\r"	#PRINT
 		@make -C minilibx_macros clean
+		@printf "[$(RED)remove$(NC)]\t\t[:########  :]\r"	#PRINT
+		@rm -rf $(NAME).dSYM
 		@printf "[$(RED)remove$(NC)]\t\t[:##########:]\n"	#PRINT
 
 fclean: clean
 		@make -C libft fclean
 		@printf "[$(RED)remove$(NC)]\t\t[:#######   :]\r"	#PRINT
 		@rm -rf $(NAME)
-		@printf "[$(RED)remove$(NC)]\t\t[:########  :]\r"	#PRINT
-		@rm -rf $(NAME).dSYM
 		@printf "[$(RED)remove$(NC)]\t\t[:##########:]\n"	#PRINT
 
 re: fclean all

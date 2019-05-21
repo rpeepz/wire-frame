@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 22:25:57 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/20 22:16:40 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/21 13:59:19 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_mlx			*init(char *title)
 	return (mlx);
 }
 
-static t_vector		vector_at(t_map *map, int x, int y)
+static t_vector	vector_at(t_map *map, int x, int y)
 {
 	return (*map->vectors[y * map->width + x]);
 }

@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:06:55 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/20 22:28:07 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/21 14:04:28 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define FDF_H
 # define WIDTH 1600
 # define HEIGHT 900
+# define K_W 13
+# define K_A 0
+# define K_S 1
+# define K_D 2
+# define K_SPC 49
+# define K_ESC 53
+# define K_LEFTARR 123
+# define K_RIGHTARR 124
 
 # include "../libft/includes/libft.h"
 # include "../minilibx/mlx.h"
@@ -129,7 +137,7 @@ int				parse_fdf(int fd, t_map **map);
 
 /*
 **	FUNCTIONS FROM MINILIBX
-**	
+**
 **
 **
 **

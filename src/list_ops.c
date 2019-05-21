@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 15:44:45 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/20 22:15:29 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/21 13:58:31 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void			rev_list(t_list **alst)
 static t_vector	rotate(t_vector p, t_cam *r)
 {
 	t_vector	v;
-	
+
 	v.x = cos(r->y) * p.x + sin(r->y) * p.z;
 	v.z = -sin(r->y) * p.x + cos(r->y) * p.z;
 	p.z = v.z;
@@ -77,7 +77,9 @@ static t_vector	rotate(t_vector p, t_cam *r)
 
 t_vector		project_vector(t_vector v, t_mlx *mlx)
 {
-	t_map *map = *(mlx->map);
+	t_map *map;
+
+	map = *(mlx->map);
 	v.x -= (double)(map->width - 1) / 2.0f;
 	v.y -= (double)(map->height - 1) / 2.0f;
 	v = rotate(v, mlx->cam);

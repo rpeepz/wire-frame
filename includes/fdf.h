@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:06:55 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/21 14:04:28 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/22 18:04:26 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define FDF_H
 # define WIDTH 1600
 # define HEIGHT 900
+# define K_1 18
+# define K_R 15
 # define K_W 13
 # define K_A 0
 # define K_S 1
@@ -22,6 +24,8 @@
 # define K_ESC 53
 # define K_LEFTARR 123
 # define K_RIGHTARR 124
+# define K_UPARR 126
+# define K_DOWNARR 125
 
 # include "../libft/includes/libft.h"
 # include "../minilibx/mlx.h"
@@ -34,6 +38,7 @@
 typedef struct	s_mouse
 {
 	char		isdown;
+	char		kydown;
 	int			x;
 	int			y;
 	int			lastx;
@@ -46,7 +51,6 @@ typedef struct	s_cam
 	double		x;
 	double		y;
 	int			scale;
-	double		**matrix;
 }				t_cam;
 
 typedef struct	s_image
@@ -89,7 +93,8 @@ typedef struct	s_mlx
 {
 	void		*mlx;
 	void		*window;
-	int			total;
+	int			map_tot;
+	int			map_cur;
 	t_image		*image;
 	t_map		**map;
 	t_mouse		*mouse;
@@ -112,7 +117,7 @@ void			line(t_mlx *mlx, t_vector p1, t_vector p2);
 **	STRUCT RETURNS
 */
 
-t_mlx			*init(char *title);
+t_mlx			*init(char *title, int total);
 t_mlx			*mlxdel(t_mlx *mlx);
 t_image			*new_image(t_mlx *mlx);
 t_image			*del_image(t_mlx *mlx, t_image *img);

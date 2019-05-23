@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 21:20:06 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/21 14:05:36 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/22 20:09:42 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,39 @@ int		hook_mouseup(int button, int x, int y, t_mlx *mlx)
 	return (0);
 }
 
+static t_vector	vector_at(t_map *map, int x, int y)	//REMOVE
+{													//REMOVE
+	return (*map->vectors[y * map->width + x]);		//REMOVE
+}													//REMOVE
+													//REMOVE
+static t_vector	rotatez(t_vector p, t_cam *r)		//REMOVE
+{													//REMOVE
+	t_vector	v;									//REMOVE
+													//REMOVE
+	v.x = cos(r->y) * p.x + sin(r->y) * p.y;		//REMOVE
+	v.y = -sin(r->y) * p.x + cos(r->y) * p.y;		//REMOVE
+	p.y = v.y;										//REMOVE
+	v.z = cos(r->x) * p.z - sin(r->x) * -p.y;		//REMOVE
+	v.y = sin(r->x) * p.z + cos(r->x) * -p.y;		//REMOVE
+	v.color = p.color;								//REMOVE
+	return (v);										//REMOVE
+}													//REMOVE
+													//REMOVE
+static t_vector		project_vectorz(t_vector v, t_mlx *mlx)	//REMOVE
+{															//REMOVE
+	t_map *map;												//REMOVE
+															//REMOVE
+	map = *(mlx->map);										//REMOVE
+	v.x -= (double)(map->width - 1) / 2.0f;					//REMOVE
+	v.y -= (double)(map->height - 1) / 2.0f;				//REMOVE
+	v = rotatez(v, mlx->cam);								//REMOVE
+	v.x *= mlx->cam->scale;									//REMOVE
+	v.y *= mlx->cam->scale;									//REMOVE
+	v.x += mlx->cam->offsetx;								//REMOVE
+	v.y += mlx->cam->offsety;								//REMOVE
+	return (v);												//REMOVE
+}															//REMOVE
+
 int		hook_mousemove(int x, int y, t_mlx *mlx)
 {
 	mlx->mouse->lastx = mlx->mouse->x;
@@ -42,8 +75,8 @@ int		hook_mousemove(int x, int y, t_mlx *mlx)
 	}
 	else if (mlx->mouse->isdown & (1 << 1))
 	{
-		mlx->cam->x += (mlx->mouse->lasty - y) / 200.0f;
-		mlx->cam->y -= (mlx->mouse->lastx - x) / 200.0f;
+		mlx->cam->x += (mlx->mouse->lasty - y) / 350.0f;
+		mlx->cam->y -= (mlx->mouse->lastx - x) / 400.0f;
 	}
 	else if (mlx->mouse->isdown & (1 << 2))
 	{
@@ -51,8 +84,63 @@ int		hook_mousemove(int x, int y, t_mlx *mlx)
 		if (mlx->cam->scale < 1)
 			mlx->cam->scale = 1;
 	}
-	if (mlx->mouse->isdown)
+	if (mlx->mouse->kydown == K_R)			//REMOVE
+	{	for(int i = 0; i < 20; i++)			//REMOVE
+		{										//REMOVE
+			mlx->cam->y -= (double)i / 1000.0f;	//REMOVE
+												//REMOVE
+			int			x1 = -1;					//REMOVE
+			int			y1;							//REMOVE
+			t_vector	v;							//REMOVE
+			t_map		*map = *(mlx->map);				//REMOVE
+			while (++x1 < map->width)					//REMOVE
+			{												//REMOVE
+				y1 = -1;									//REMOVE
+				while (++y1 < map->height)						//REMOVE
+				{													//REMOVE
+					v = project_vectorz(vector_at(map, x1, y1), mlx);	//REMOVE
+					if (x1 + 1 < map->width)								//REMOVE
+						line(mlx, v,											//REMOVE
+							project_vectorz(vector_at(map, x1 + 1, y1), mlx));	//REMOVE
+					if (y1 + 1 < map->height)										//REMOVE
+						line(mlx, v,												//REMOVE
+							project_vectorz(vector_at(map, x1, y1 + 1), mlx));		//REMOVE
+				}																	//REMOVE
+			}																		//REMOVE
+			mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->image->image, 0, 0);	//REMOVE
+		}																				//REMOVE
+		mlx->mouse->kydown = 0;														//REMOVE
+		//render(mlx);															//REMOVE
+		return (0);															//REMOVE
+	}
+	if (mlx->mouse->isdown) //SUBSTITUE THE FOLLOWING WITH // render(mlx);
 		render(mlx);
+	else
+	{	//CLEAR SCREEN WHEN MOUSE IS STILL
+		if (mlx->mouse->lastx == mlx->mouse->x && mlx->mouse->lasty == mlx->mouse->y)
+			ft_bzero(mlx->image->ptr, WIDTH * HEIGHT * mlx->image->bpp);
+		else if (!mlx->mouse->isdown)
+			ft_bzero(mlx->image->ptr, WIDTH * HEIGHT * mlx->image->bpp);
+		int			x1 = -1;
+		int			y1;
+		t_vector	v;
+		t_map		*map = *(mlx->map);
+		while (++x1 < map->width)
+		{
+			y1 = -1;
+			while (++y1 < map->height)
+			{
+				v = project_vectorz(vector_at(map, x1, y1), mlx);
+				if (x1 + 1 < map->width)
+					line(mlx, v,
+						project_vectorz(vector_at(map, x1 + 1, y1), mlx));
+				if (y1 + 1 < map->height)
+					line(mlx, v,
+						project_vectorz(vector_at(map, x1, y1 + 1), mlx));
+			}
+		}
+		mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->image->image, 0, 0);
+	}
 	return (0);
 }
 
@@ -70,68 +158,100 @@ int		hook_keydown(int key, t_mlx *mlx)
 	int			i;
 
 	(void)mlx;
+	ft_printf("key: %d\n", key);
+//	quit program
 	if (key == K_ESC)
 		exit(EXIT_SUCCESS);
-	else
-	{
-		ft_printf("key: %d\n", key);
-	}
-//	below holds logic for raising by 1 on z-axis a single point
+//	set keydown and return
+	IF_RETURN(key == K_1 && (mlx->mouse->kydown = K_1), 0);
+	IF_RETURN(key == K_R && (mlx->mouse->kydown = K_R), 0);
+//	raising by 1 on z-axis a single point
 	if (key == K_SPC)
 	{
 		map = *(mlx->map);
 		v = *map->vectors;
 		v->z++;
+		map_depth(map);
+		set_colors(map);
 		render(mlx);
-		return (0);
 	}
-//	below holds logic for raising by 1 on z-axis a row along the height
-	if (key == K_W || key == K_S)
+//	raising by 1 on z-axis a row along the height
+	else if (key == K_W || key == K_S)
 	{
 		map = *(mlx->map);
 		vectors = map->vectors;
+		if (mlx->mouse->kydown == K_1)
+		{
+			vectors += 1; // TODO
+			mlx->mouse->kydown = 0;
+		}
 		if (key == K_W)
 			while (*vectors)
 			{
-				(*vectors)->z++;
+				(*vectors)->z += 1;
 				vectors += map->width;
 			}
 		else if (key == K_S)
 			while (*vectors)
 			{
-				(*vectors)->z--;
+				(*vectors)->z -= 1;
 				vectors += map->width;
 			}
+		
+		map_depth(map); //sets depth for color calculations
+		set_colors(map);//sets color gradient based on depth
 		render(mlx);
-		return (0);
 	}
-//	below holds logic for raising by 1 on z-axis a row along the width
-	if (key == K_A || key == K_D)
+//	raising by 1 on z-axis a row along the width
+	else if (key == K_A || key == K_D)
 	{
 		map = *(mlx->map);
 		vectors = map->vectors;
 		i = 0;
+		if (mlx->mouse->kydown == K_1)
+		{
+			*vectors += 1;
+			mlx->mouse->kydown = 0;
+		}
 		if (key == K_D)
 			while (i++ < map->width)
 			{
-				(*vectors)->z++;
+				(*vectors)->z += 1;
 				vectors++;
 			}
 		else if (key == K_A)
 			while (i++ < map->width)
 			{
-				(*vectors)->z--;
+				(*vectors)->z -= 1;
 				vectors++;
 			}
+		map_depth(map); //sets depth for color calculations
+		set_colors(map);//sets color gradient based on depth
 		render(mlx);
-		return (0);
 	}
-	else
+//	swap or snap between given maps
+	else if (key == K_LEFTARR || key == K_RIGHTARR || key == K_UPARR || key == K_DOWNARR)
 	{
-		if (key == K_RIGHTARR)
-			mlx->map++;
-		else if (key == K_LEFTARR)
-			mlx->map--;
+		if (key == K_RIGHTARR || key == K_UPARR)
+		{
+			while (mlx->map_cur < mlx->map_tot)
+			{
+				mlx->map_cur++;
+				mlx->map++;
+				if (key == K_RIGHTARR)
+					break ;
+			}
+		}
+		else if (key == K_LEFTARR || key == K_DOWNARR)
+		{
+			while (mlx->map_cur > 0)
+			{
+				mlx->map_cur--;
+				mlx->map--;
+				if (key == K_LEFTARR)
+					break ;
+			}
+		}
 		render(mlx);
 	}
 	return (0);

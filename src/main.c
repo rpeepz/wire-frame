@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 01:28:43 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/21 13:58:57 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/22 17:58:18 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,14 @@ int		main(int ac, char **av)
 	while (++i < ac - 1)
 		if (fd[i] < 0 || !parse_fdf(fd[i], &map[i]))
 			return (ft_error(2));
-	if (!(mlx = init("baguette")))
+	if (!(mlx = init("baguette", ac - 2)))
 		return (ft_error(3));
-	mlx->total = ac - 1;
 	mlx->map = map;
 	render(mlx);
 	mlx_key_hook(mlx->window, hook_keydown, mlx);
 	mlx_hook(mlx->window, 4, 0, hook_mousedown, mlx);
-	mlx_hook(mlx->window, 5, 0, hook_mouseup, mlx);
 	mlx_hook(mlx->window, 6, 0, hook_mousemove, mlx);
+	mlx_hook(mlx->window, 5, 0, hook_mouseup, mlx);
 	mlx_loop(mlx->mlx);
 	return (0);
 }

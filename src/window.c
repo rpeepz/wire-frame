@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 22:25:57 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/21 13:59:19 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/22 15:29:46 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_mlx			*mlxdel(t_mlx *mlx)
 **		!(mlx->mouse = ft_memalloc(sizeof(t_mouse))) ||
 */
 
-t_mlx			*init(char *title)
+t_mlx			*init(char *title, int total)
 {
 	t_mlx	*mlx;
 
@@ -43,8 +43,10 @@ t_mlx			*init(char *title)
 		!(mlx->mouse = ft_memalloc(sizeof(t_mouse))) ||
 		!(mlx->image = new_image(mlx)))
 		return (mlxdel(mlx));
-	mlx->cam->x = 0.5;
-	mlx->cam->y = 0.5;
+	mlx->map_tot = total;
+	mlx->map_cur = 0;
+	mlx->cam->x = 0.8;
+	mlx->cam->y = 0.0;
 	mlx->cam->scale = 32;
 	mlx->cam->offsetx = WIDTH / 2;
 	mlx->cam->offsety = HEIGHT / 2;

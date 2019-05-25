@@ -6,7 +6,7 @@
 /*   By: rpapagna <rpapagna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 21:20:06 by rpapagna          #+#    #+#             */
-/*   Updated: 2019/05/22 20:09:42 by rpapagna         ###   ########.fr       */
+/*   Updated: 2019/05/22 22:37:46 by rpapagna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		hook_mousemove(int x, int y, t_mlx *mlx)
 	if (mlx->mouse->kydown == K_R)			//REMOVE
 	{	for(int i = 0; i < 20; i++)			//REMOVE
 		{										//REMOVE
-			mlx->cam->y -= (double)i / 1000.0f;	//REMOVE
+			mlx->cam->y -= (double)i / 800.0f;	//REMOVE
 												//REMOVE
 			int			x1 = -1;					//REMOVE
 			int			y1;							//REMOVE
@@ -117,10 +117,11 @@ int		hook_mousemove(int x, int y, t_mlx *mlx)
 		render(mlx);
 	else
 	{	//CLEAR SCREEN WHEN MOUSE IS STILL
+		return 0;
 		if (mlx->mouse->lastx == mlx->mouse->x && mlx->mouse->lasty == mlx->mouse->y)
 			ft_bzero(mlx->image->ptr, WIDTH * HEIGHT * mlx->image->bpp);
-		else if (!mlx->mouse->isdown)
-			ft_bzero(mlx->image->ptr, WIDTH * HEIGHT * mlx->image->bpp);
+//		else if (!mlx->mouse->isdown)
+//			ft_bzero(mlx->image->ptr, WIDTH * HEIGHT * mlx->image->bpp);
 		int			x1 = -1;
 		int			y1;
 		t_vector	v;

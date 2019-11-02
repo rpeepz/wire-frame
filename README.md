@@ -1,4 +1,4 @@
-# wrire-frame
+# wire-frame
 making a wireframe with math
 
 ## Sample of working render with bonus
